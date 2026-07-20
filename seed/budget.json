@@ -1,0 +1,83 @@
+[
+  {
+    "id": "bud_01",
+    "year": 2026,
+    "type": "Revenue",
+    "category": "Dana Desa (DD)",
+    "target": 1125000000,
+    "realized": 1125000000,
+    "percentage": 100
+  },
+  {
+    "id": "bud_02",
+    "year": 2026,
+    "type": "Revenue",
+    "category": "Alokasi Dana Desa (ADD)",
+    "target": 450000000,
+    "realized": 450000000,
+    "percentage": 100
+  },
+  {
+    "id": "bud_03",
+    "year": 2026,
+    "type": "Revenue",
+    "category": "Bantuan Keuangan Provinsi (Banprov)",
+    "target": 130000000,
+    "realized": 130000000,
+    "percentage": 100
+  },
+  {
+    "id": "bud_04",
+    "year": 2026,
+    "type": "Revenue",
+    "category": "Pendapatan Asli Desa (PADes)",
+    "target": 35000000,
+    "realized": 28500000,
+    "percentage": 81
+  },
+  {
+    "id": "bud_05",
+    "year": 2026,
+    "type": "Expenditure",
+    "category": "Bidang Penyelenggaraan Pemerintahan Desa",
+    "target": 480000000,
+    "realized": 455000000,
+    "percentage": 94
+  },
+  {
+    "id": "bud_06",
+    "year": 2026,
+    "type": "Expenditure",
+    "category": "Bidang Pelaksanaan Pembangunan Desa",
+    "target": 750000000,
+    "realized": 625000000,
+    "percentage": 83
+  },
+  {
+    "id": "bud_07",
+    "year": 2026,
+    "type": "Expenditure",
+    "category": "Bidang Pembinaan Kemasyarakatan Desa",
+    "target": 120000000,
+    "realized": 112000000,
+    "percentage": 93
+  },
+  {
+    "id": "bud_08",
+    "year": 2026,
+    "type": "Expenditure",
+    "category": "Bidang Pemberdayaan Masyarakat Desa",
+    "target": 150000000,
+    "realized": 135000000,
+    "percentage": 90
+  },
+  {
+    "id": "bud_09",
+    "year": 2026,
+    "type": "Expenditure",
+    "category": "Bidang Penanggulangan Bencana & Darurat",
+    "target": 50000000,
+    "realized": 32000000,
+    "percentage": 64
+  }
+]

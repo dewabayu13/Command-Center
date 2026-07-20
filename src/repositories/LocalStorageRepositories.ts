@@ -1,0 +1,270 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import {
+  ICitizenRepository,
+  IEmployeeRepository,
+  IAttendanceRepository,
+  ILetterRepository,
+  ITaxpayerRepository,
+  IVillageProjectRepository,
+  IComplaintRepository,
+  IVillageAssetRepository,
+  INotificationRepository,
+  IVillageMetricRepository
+} from '../interfaces/repositories';
+
+import {
+  Citizen,
+  Employee,
+  Attendance,
+  Letter,
+  Taxpayer,
+  VillageProject,
+  Complaint,
+  VillageAsset,
+  VillageNotification,
+  APBDesBudget,
+  WeatherData
+} from '../types';
+
+import {
+  mockCitizens,
+  mockEmployees,
+  mockAttendanceList,
+  mockLetters,
+  mockTaxpayers,
+  mockProjects,
+  mockComplaints,
+  mockAssets,
+  mockNotifications,
+  mockWeather,
+  mockBudget
+} from '../utils/mockData';
+
+import { APP_CONFIG } from '../config/appConfig';
+import { logger } from '../utils/logger';
+
+// Storage Helper
+const getStored = <T>(key: string, fallback: T): T => {
+  const fullKey = `${APP_CONFIG.LOCAL_STORAGE_PREFIX}${key}`;
+  try {
+    const data = localStorage.getItem(fullKey);
+    return data ? JSON.parse(data) : fallback;
+  } catch (err) {
+    logger.error(`Error reading key "${fullKey}" from localStorage`, err);
+    return fallback;
+  }
+};
+
+const setStored = <T>(key: string, value: T): void => {
+  const fullKey = `${APP_CONFIG.LOCAL_STORAGE_PREFIX}${key}`;
+  try {
+    localStorage.setItem(fullKey, JSON.stringify(value));
+  } catch (err) {
+    logger.error(`Error writing key "${fullKey}" to localStorage`, err);
+  }
+};
+
+export class LocalStorageCitizenRepository implements ICitizenRepository {
+  getCitizens(): Citizen[] {
+    logger.info('LocalStorageCitizenRepository.getCitizens called');
+    return getStored('citizens', mockCitizens);
+  }
+
+  addCitizen(citizen: Citizen): Citizen[] {
+    logger.info(`LocalStorageCitizenRepository.addCitizen for: ${citizen.fullName}`);
+    const list = this.getCitizens();
+    list.unshift(citizen);
+    setStored('citizens', list);
+    return list;
+  }
+}
+
+export class LocalStorageEmployeeRepository implements IEmployeeRepository {
+  getEmployees(): Employee[] {
+    logger.info('LocalStorageEmployeeRepository.getEmployees called');
+    // static roles listing
+    return mockEmployees;
+  }
+}
+
+export class LocalStorageAttendanceRepository implements IAttendanceRepository {
+  getAttendance(): Attendance[] {
+    logger.info('LocalStorageAttendanceRepository.getAttendance called');
+    return getStored('attendance', mockAttendanceList);
+  }
+
+  addAttendance(record: Attendance): Attendance[] {
+    logger.info(`LocalStorageAttendanceRepository.addAttendance for: ${record.fullName}`);
+    const list = this.getAttendance();
+    list.unshift(record);
+    setStored('attendance', list);
+    return list;
+  }
+}
+
+export class LocalStorageLetterRepository implements ILetterRepository {
+  getLetters(): Letter[] {
+    logger.info('LocalStorageLetterRepository.getLetters called');
+    return getStored('letters', mockLetters);
+  }
+
+  addLetter(letter: Letter): Letter[] {
+    logger.info(`LocalStorageLetterRepository.addLetter for: ${letter.title}`);
+    const list = this.getLetters();
+    list.unshift(letter);
+    setStored('letters', list);
+    return list;
+  }
+
+  updateLetterStatus(
+    letterId: string,
+    status: 'Pending' | 'Verified' | 'Completed',
+    signedBy?: string,
+    qrCode?: string
+  ): Letter[] {
+    logger.info(`LocalStorageLetterRepository.updateLetterStatus id: ${letterId} status: ${status}`);
+    const list = this.getLetters();
+    const updated = list.map(l => {
+      if (l.letterId === letterId) {
+        return {
+          ...l,
+          status,
+          completedAt: status === 'Completed' ? new Date().toISOString().replace('T', ' ').slice(0, 16) : undefined,
+          signedBy,
+          qrVerificationCode: qrCode
+        };
+      }
+      return l;
+    });
+    setStored('letters', updated);
+    return updated;
+  }
+}
+
+export class LocalStorageTaxpayerRepository implements ITaxpayerRepository {
+  getTaxpayers(): Taxpayer[] {
+    logger.info('LocalStorageTaxpayerRepository.getTaxpayers called');
+    return getStored('taxpayers', mockTaxpayers);
+  }
+
+  updateTaxStatus(nop: string, status: 'Paid' | 'Unpaid'): Taxpayer[] {
+    logger.info(`LocalStorageTaxpayerRepository.updateTaxStatus nop: ${nop} status: ${status}`);
+    const list = this.getTaxpayers();
+    const updated = list.map(t => {
+      if (t.nop === nop) {
+        return {
+          ...t,
+          status,
+          paidAt: status === 'Paid' ? new Date().toISOString().replace('T', ' ').slice(0, 16) : undefined
+        };
+      }
+      return t;
+    });
+    setStored('taxpayers', updated);
+    return updated;
+  }
+}
+
+export class LocalStorageVillageProjectRepository implements IVillageProjectRepository {
+  getProjects(): VillageProject[] {
+    logger.info('LocalStorageVillageProjectRepository.getProjects called');
+    return getStored('projects', mockProjects);
+  }
+
+  addProject(project: VillageProject): VillageProject[] {
+    logger.info(`LocalStorageVillageProjectRepository.addProject for: ${project.name}`);
+    const list = this.getProjects();
+    list.unshift(project);
+    setStored('projects', list);
+    return list;
+  }
+}
+
+export class LocalStorageComplaintRepository implements IComplaintRepository {
+  getComplaints(): Complaint[] {
+    logger.info('LocalStorageComplaintRepository.getComplaints called');
+    return getStored('complaints', mockComplaints);
+  }
+
+  addComplaint(complaint: Complaint): Complaint[] {
+    logger.info(`LocalStorageComplaintRepository.addComplaint for: ${complaint.title}`);
+    const list = this.getComplaints();
+    list.unshift(complaint);
+    setStored('complaints', list);
+    return list;
+  }
+
+  updateComplaintStatus(
+    complaintId: string,
+    status: 'Submitted' | 'In Progress' | 'Resolved'
+  ): Complaint[] {
+    logger.info(`LocalStorageComplaintRepository.updateComplaintStatus id: ${complaintId} status: ${status}`);
+    const list = this.getComplaints();
+    const updated = list.map(c => {
+      if (c.complaintId === complaintId) {
+        return {
+          ...c,
+          status,
+          responseTimeHours: status === 'Resolved' ? Math.floor(Math.random() * 24) + 12 : undefined
+        };
+      }
+      return c;
+    });
+    setStored('complaints', updated);
+    return updated;
+  }
+}
+
+export class LocalStorageAssetRepository implements IVillageAssetRepository {
+  getAssets(): VillageAsset[] {
+    logger.info('LocalStorageAssetRepository.getAssets called');
+    return getStored('assets', mockAssets);
+  }
+
+  addAsset(asset: VillageAsset): VillageAsset[] {
+    logger.info(`LocalStorageAssetRepository.addAsset for: ${asset.name}`);
+    const list = this.getAssets();
+    list.unshift(asset);
+    setStored('assets', list);
+    return list;
+  }
+}
+
+export class LocalStorageNotificationRepository implements INotificationRepository {
+  getNotifications(): VillageNotification[] {
+    logger.info('LocalStorageNotificationRepository.getNotifications called');
+    return getStored('notifications', mockNotifications);
+  }
+
+  addNotification(notif: VillageNotification): VillageNotification[] {
+    logger.info(`LocalStorageNotificationRepository.addNotification for: ${notif.title}`);
+    const list = this.getNotifications();
+    list.unshift(notif);
+    setStored('notifications', list);
+    return list;
+  }
+
+  markNotificationRead(id: string): VillageNotification[] {
+    logger.info(`LocalStorageNotificationRepository.markNotificationRead id: ${id}`);
+    const list = this.getNotifications();
+    const updated = list.map(n => n.id === id ? { ...n, read: true } : n);
+    setStored('notifications', updated);
+    return updated;
+  }
+}
+
+export class LocalStorageVillageMetricRepository implements IVillageMetricRepository {
+  getBudget(): APBDesBudget {
+    logger.info('LocalStorageVillageMetricRepository.getBudget called');
+    return mockBudget;
+  }
+
+  getWeather(): WeatherData {
+    logger.info('LocalStorageVillageMetricRepository.getWeather called');
+    return mockWeather;
+  }
+}

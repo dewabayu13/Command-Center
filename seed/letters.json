@@ -1,0 +1,54 @@
+[
+  {
+    "id": "let_01",
+    "letterNo": "140/012/PEM/VII/2026",
+    "title": "Surat Keterangan Kematian (SKM)",
+    "type": "Outgoing",
+    "applicantName": "Edah Djubaedah",
+    "applicantNIK": "3210176906450001",
+    "status": "Completed",
+    "requestedAt": "2026-07-15 09:12:15",
+    "completedAt": "2026-07-15 09:45:00",
+    "signedBy": "Iko Susanto",
+    "qrCode": "https://easydes.id/verify/140-012"
+  },
+  {
+    "id": "let_02",
+    "letterNo": "141/045/KESRA/VII/2026",
+    "title": "Surat Keterangan Tidak Mampu (SKTM)",
+    "type": "Outgoing",
+    "applicantName": "Mei Saemurni",
+    "applicantNIK": "3210175105890121",
+    "status": "Completed",
+    "requestedAt": "2026-07-18 10:05:00",
+    "completedAt": "2026-07-18 10:20:12",
+    "signedBy": "Iko Susanto",
+    "qrCode": "https://easydes.id/verify/141-045"
+  },
+  {
+    "id": "let_03",
+    "letterNo": "140/098/PEM/VII/2026",
+    "title": "Surat Pengantar Pembuatan KTP",
+    "type": "Outgoing",
+    "applicantName": "Ade Caswadi",
+    "applicantNIK": "3210172907680001",
+    "status": "Pending",
+    "requestedAt": "2026-07-20 08:30:00",
+    "completedAt": "",
+    "signedBy": "",
+    "qrCode": ""
+  },
+  {
+    "id": "let_04",
+    "letterNo": "050/302-Kec/2026",
+    "title": "Surat Pemberitahuan Musrenbang Kecamatan Sumberjaya",
+    "type": "Incoming",
+    "applicantName": "Camat Sumberjaya",
+    "applicantNIK": "KEC-SUMBERJAYA-01",
+    "status": "Completed",
+    "requestedAt": "2026-07-12 11:30:00",
+    "completedAt": "2026-07-12 13:00:00",
+    "signedBy": "Nina Nursasih",
+    "qrCode": ""
+  }
+]

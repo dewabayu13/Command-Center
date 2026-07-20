@@ -1,0 +1,62 @@
+[
+  {
+    "id": "att_01",
+    "nik": "3210172403760001",
+    "fullName": "Iko Susanto",
+    "role": "Kepala Desa (Kuwu)",
+    "date": "2026-07-20",
+    "clockIn": "07:15:32",
+    "clockOut": "15:45:10",
+    "status": "Present",
+    "performanceScore": 98,
+    "location": { "lat": -6.703128, "lng": 108.321618 }
+  },
+  {
+    "id": "att_02",
+    "nik": "3210174811840041",
+    "fullName": "Nina Nursasih",
+    "role": "Sekretaris Desa (Carik)",
+    "date": "2026-07-20",
+    "clockIn": "07:22:15",
+    "clockOut": "15:35:45",
+    "status": "Present",
+    "performanceScore": 95,
+    "location": { "lat": -6.703120, "lng": 108.321600 }
+  },
+  {
+    "id": "att_03",
+    "nik": "3210101505800012",
+    "fullName": "Nana Supriatna",
+    "role": "Kaur Keuangan (Bendahara)",
+    "date": "2026-07-20",
+    "clockIn": "07:29:40",
+    "clockOut": "16:00:15",
+    "status": "Present",
+    "performanceScore": 92,
+    "location": { "lat": -6.703135, "lng": 108.321650 }
+  },
+  {
+    "id": "att_04",
+    "nik": "3210173003780021",
+    "fullName": "Kurniawan",
+    "role": "Kasi Pemerintahan",
+    "date": "2026-07-20",
+    "clockIn": "07:45:12",
+    "clockOut": "",
+    "status": "Late",
+    "performanceScore": 75,
+    "location": { "lat": -6.703200, "lng": 108.321700 }
+  },
+  {
+    "id": "att_05",
+    "nik": "3210171206920101",
+    "fullName": "Junaedi",
+    "role": "Kolektor PBB",
+    "date": "2026-07-20",
+    "clockIn": "",
+    "clockOut": "",
+    "status": "Absent",
+    "performanceScore": 0,
+    "location": null
+  }
+]

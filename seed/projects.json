@@ -1,0 +1,47 @@
+[
+  {
+    "id": "proj_01",
+    "name": "Pembangunan Tembok Penahan Tanah (TPT) Jalan Usaha Tani",
+    "category": "Infrastruktur",
+    "budget": 125000000,
+    "source": "Dana Desa (DD)",
+    "location": "Blok Sabtu RT 02/RW 01",
+    "status": "In Progress",
+    "progress": 75,
+    "startDate": "2026-05-10",
+    "endDate": "2026-08-10",
+    "contractor": "Swakelola TPK Bongas Kulon",
+    "lat": -6.7028,
+    "lng": 108.321
+  },
+  {
+    "id": "proj_02",
+    "name": "Rehabilitasi Rumah Tidak Layak Huni (RTLH) Sektor Miskin Ekstrem",
+    "category": "Kesejahteraan Sosial",
+    "budget": 45000000,
+    "source": "Bantuan Keuangan Provinsi (Banprov)",
+    "location": "Blok Selasa RT 01/RW 02",
+    "status": "Completed",
+    "progress": 100,
+    "startDate": "2026-04-01",
+    "endDate": "2026-06-15",
+    "contractor": "TPK Desa Sektor Pemukiman",
+    "lat": -6.7036,
+    "lng": 108.3228
+  },
+  {
+    "id": "proj_03",
+    "name": "Pemasangan Penerangan Jalan Umum (PJU) Tenaga Surya",
+    "category": "Infrastruktur",
+    "budget": 60000000,
+    "source": "Alokasi Dana Desa (ADD)",
+    "location": "Akses Jalan Utama Blok Sabtu - Blok Selasa",
+    "status": "In Progress",
+    "progress": 40,
+    "startDate": "2026-06-01",
+    "endDate": "2026-09-01",
+    "contractor": "CV Sinar Mandiri Majalengka",
+    "lat": -6.7032,
+    "lng": 108.322
+  }
+]

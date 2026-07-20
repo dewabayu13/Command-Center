@@ -1,0 +1,30 @@
+[
+  {
+    "id": "comp_01",
+    "reporterName": "Mei Saemurni",
+    "reporterNIK": "3210175105890121",
+    "category": "Fasilitas Umum",
+    "title": "Saluran Irigasi Blok Sabtu Tersumbat Sampah Kebun",
+    "description": "Saluran pembuangan air tersumbat pelepah pisang dan sampah plastik, berpotensi meluap ke badan jalan saat hujan deras.",
+    "location": "Blok Sabtu RT 01",
+    "status": "In Progress",
+    "createdAt": "2026-07-19 14:30:00",
+    "updatedAt": "2026-07-20 09:15:00",
+    "latitude": -6.702810,
+    "longitude": 108.320950
+  },
+  {
+    "id": "comp_02",
+    "reporterName": "Ade Caswadi",
+    "reporterNIK": "3210172907680001",
+    "category": "Penerangan Jalan",
+    "title": "Lampu PJU Tenaga Surya Mati Dekat Gapura Masuk",
+    "description": "Lampu penerangan mati total sejak 3 hari yang lalu. Jalanan gelap gulita mengganggu aktivitas warga malam hari.",
+    "location": "Gapura Masuk Blok Selasa",
+    "status": "Completed",
+    "createdAt": "2026-07-15 19:22:10",
+    "updatedAt": "2026-07-17 11:30:00",
+    "latitude": -6.703500,
+    "longitude": 108.322500
+  }
+]

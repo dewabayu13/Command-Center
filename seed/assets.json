@@ -1,0 +1,50 @@
+[
+  {
+    "id": "as_01",
+    "name": "Tanah Kas Desa (Titisara) Blok Sabtu",
+    "category": "Land",
+    "condition": "Good",
+    "value": 1250000000,
+    "location": "Blok Sabtu, Desa Bongas Kulon",
+    "status": "In Use",
+    "qrCode": "https://easydes.id/assets/qr/as_01",
+    "certified": true,
+    "certifiedNo": "HP-0021-Bongas-Kulon"
+  },
+  {
+    "id": "as_02",
+    "name": "Gedung Balai Desa & Kantor Aparatur",
+    "category": "Buildings",
+    "condition": "Good",
+    "value": 850000000,
+    "location": "Pusat Desa, Jl. Ki Jaga Jaga",
+    "status": "In Use",
+    "qrCode": "https://easydes.id/assets/qr/as_02",
+    "certified": true,
+    "certifiedNo": "HP-0001-Kantor-Desa"
+  },
+  {
+    "id": "as_03",
+    "name": "Mobil Siaga Ambulance Desa",
+    "category": "Vehicles",
+    "condition": "Good",
+    "value": 240000000,
+    "location": "Garasi Balai Desa",
+    "status": "In Use",
+    "qrCode": "https://easydes.id/assets/qr/as_03",
+    "certified": true,
+    "certifiedNo": "E-2026-XQ"
+  },
+  {
+    "id": "as_04",
+    "name": "Laptop Inventaris Pelayanan Publik (3 Unit)",
+    "category": "Equipment",
+    "condition": "Good",
+    "value": 28500000,
+    "location": "Ruang Seksi Pemerintahan",
+    "status": "In Use",
+    "qrCode": "https://easydes.id/assets/qr/as_04",
+    "certified": false,
+    "certifiedNo": ""
+  }
+]

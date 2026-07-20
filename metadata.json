@@ -1,0 +1,12 @@
+{
+  "name": "EasyDes Smart Village Command Center",
+  "description": "Real-time, integrated Smart Village Command Center dashboard for village administrations, featuring GIS mapping, tax tracking, attendance monitoring, and Google Workspace synchronization under a premium Bento Grid theme.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

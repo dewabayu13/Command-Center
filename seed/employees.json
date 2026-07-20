@@ -1,0 +1,50 @@
+[
+  {
+    "id": "emp_01",
+    "nik": "3210171206920101",
+    "fullName": "Junaedi",
+    "role": "Kolektor PBB",
+    "phone": "+6281234567801",
+    "status": "Active"
+  },
+  {
+    "id": "emp_02",
+    "nik": "3210172907680001",
+    "fullName": "Ade Caswadi",
+    "role": "Kepala Dusun (Kadus)",
+    "phone": "+6281234567802",
+    "status": "Active"
+  },
+  {
+    "id": "emp_03",
+    "nik": "3210172403760001",
+    "fullName": "Iko Susanto",
+    "role": "Kepala Desa (Kuwu)",
+    "phone": "+6285224098311",
+    "status": "Active"
+  },
+  {
+    "id": "emp_04",
+    "nik": "3210174811840041",
+    "fullName": "Nina Nursasih",
+    "role": "Sekretaris Desa (Carik)",
+    "phone": "+6287711204982",
+    "status": "Active"
+  },
+  {
+    "id": "emp_05",
+    "nik": "3210101505800012",
+    "fullName": "Nana Supriatna",
+    "role": "Kaur Keuangan (Bendahara)",
+    "phone": "+6281313459807",
+    "status": "Active"
+  },
+  {
+    "id": "emp_06",
+    "nik": "3210173003780021",
+    "fullName": "Kurniawan",
+    "role": "Kasi Pemerintahan",
+    "phone": "+6281224560911",
+    "status": "Active"
+  }
+]

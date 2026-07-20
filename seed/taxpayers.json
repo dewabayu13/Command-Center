@@ -1,0 +1,62 @@
+[
+  {
+    "nop": "32.10.170.001.002-0012.0",
+    "taxpayerName": "Ade Caswadi",
+    "nik": "3210172907680001",
+    "address": "RT 01 RW 02 Blok Selasa",
+    "dusunId": "dusun_02",
+    "amount": 125000,
+    "status": "Paid",
+    "paidAt": "2026-06-15 10:30:22"
+  },
+  {
+    "nop": "32.10.170.001.002-0054.0",
+    "taxpayerName": "Carim",
+    "nik": "3210172006520001",
+    "address": "RT 01 RW 02 Blok Selasa",
+    "dusunId": "dusun_02",
+    "amount": 75000,
+    "status": "Unpaid",
+    "paidAt": null
+  },
+  {
+    "nop": "32.10.170.001.001-0023.0",
+    "taxpayerName": "Mei Saemurni",
+    "nik": "3210175105890121",
+    "address": "RT 01 RW 01 Blok Sabtu",
+    "dusunId": "dusun_01",
+    "amount": 45000,
+    "status": "Paid",
+    "paidAt": "2026-07-01 08:45:10"
+  },
+  {
+    "nop": "32.10.170.001.001-0087.0",
+    "taxpayerName": "Edah Djubaedah",
+    "nik": "3210176906450001",
+    "address": "RT 03 RW 01 Blok Sabtu",
+    "dusunId": "dusun_01",
+    "amount": 32000,
+    "status": "Paid",
+    "paidAt": "2026-06-28 14:12:00"
+  },
+  {
+    "nop": "32.10.170.001.002-0112.0",
+    "taxpayerName": "Kastam Suharto",
+    "nik": "3210171504730021",
+    "address": "RT 01 RW 02 Blok Selasa",
+    "dusunId": "dusun_02",
+    "amount": 185000,
+    "status": "Unpaid",
+    "paidAt": null
+  },
+  {
+    "nop": "32.10.170.001.002-0099.0",
+    "taxpayerName": "Iko Susanto",
+    "nik": "3210172403760001",
+    "address": "RT 01 RW 02 Blok Selasa",
+    "dusunId": "dusun_02",
+    "amount": 220000,
+    "status": "Paid",
+    "paidAt": "2026-05-10 09:15:30"
+  }
+]
