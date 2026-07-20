@@ -49,6 +49,16 @@ import {
 
 class RepositoryFactory {
   private dbType: 'local' | 'firebase';
+  private citizenRepository?: ICitizenRepository;
+  private employeeRepository?: IEmployeeRepository;
+  private attendanceRepository?: IAttendanceRepository;
+  private letterRepository?: ILetterRepository;
+  private taxpayerRepository?: ITaxpayerRepository;
+  private projectRepository?: IVillageProjectRepository;
+  private complaintRepository?: IComplaintRepository;
+  private assetRepository?: IVillageAssetRepository;
+  private notificationRepository?: INotificationRepository;
+  private metricRepository?: IVillageMetricRepository;
 
   constructor() {
     this.dbType = APP_CONFIG.DB_TYPE;
@@ -56,83 +66,123 @@ class RepositoryFactory {
   }
 
   getCitizenRepository(): ICitizenRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Citizen Repository');
-      return new FirebaseCitizenRepository();
+    if (!this.citizenRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Citizen Repository');
+        this.citizenRepository = new FirebaseCitizenRepository();
+      } else {
+        this.citizenRepository = new LocalStorageCitizenRepository();
+      }
     }
-    return new LocalStorageCitizenRepository();
+    return this.citizenRepository;
   }
 
   getEmployeeRepository(): IEmployeeRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Employee Repository');
-      return new FirebaseEmployeeRepository();
+    if (!this.employeeRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Employee Repository');
+        this.employeeRepository = new FirebaseEmployeeRepository();
+      } else {
+        this.employeeRepository = new LocalStorageEmployeeRepository();
+      }
     }
-    return new LocalStorageEmployeeRepository();
+    return this.employeeRepository;
   }
 
   getAttendanceRepository(): IAttendanceRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Attendance Repository');
-      return new FirebaseAttendanceRepository();
+    if (!this.attendanceRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Attendance Repository');
+        this.attendanceRepository = new FirebaseAttendanceRepository();
+      } else {
+        this.attendanceRepository = new LocalStorageAttendanceRepository();
+      }
     }
-    return new LocalStorageAttendanceRepository();
+    return this.attendanceRepository;
   }
 
   getLetterRepository(): ILetterRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Letter Repository');
-      return new FirebaseLetterRepository();
+    if (!this.letterRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Letter Repository');
+        this.letterRepository = new FirebaseLetterRepository();
+      } else {
+        this.letterRepository = new LocalStorageLetterRepository();
+      }
     }
-    return new LocalStorageLetterRepository();
+    return this.letterRepository;
   }
 
   getTaxpayerRepository(): ITaxpayerRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Taxpayer Repository');
-      return new FirebaseTaxpayerRepository();
+    if (!this.taxpayerRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Taxpayer Repository');
+        this.taxpayerRepository = new FirebaseTaxpayerRepository();
+      } else {
+        this.taxpayerRepository = new LocalStorageTaxpayerRepository();
+      }
     }
-    return new LocalStorageTaxpayerRepository();
+    return this.taxpayerRepository;
   }
 
   getProjectRepository(): IVillageProjectRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Project Repository');
-      return new FirebaseVillageProjectRepository();
+    if (!this.projectRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Project Repository');
+        this.projectRepository = new FirebaseVillageProjectRepository();
+      } else {
+        this.projectRepository = new LocalStorageVillageProjectRepository();
+      }
     }
-    return new LocalStorageVillageProjectRepository();
+    return this.projectRepository;
   }
 
   getComplaintRepository(): IComplaintRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Complaint Repository');
-      return new FirebaseComplaintRepository();
+    if (!this.complaintRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Complaint Repository');
+        this.complaintRepository = new FirebaseComplaintRepository();
+      } else {
+        this.complaintRepository = new LocalStorageComplaintRepository();
+      }
     }
-    return new LocalStorageComplaintRepository();
+    return this.complaintRepository;
   }
 
   getAssetRepository(): IVillageAssetRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Asset Repository');
-      return new FirebaseAssetRepository();
+    if (!this.assetRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Asset Repository');
+        this.assetRepository = new FirebaseAssetRepository();
+      } else {
+        this.assetRepository = new LocalStorageAssetRepository();
+      }
     }
-    return new LocalStorageAssetRepository();
+    return this.assetRepository;
   }
 
   getNotificationRepository(): INotificationRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Notification Repository');
-      return new FirebaseNotificationRepository();
+    if (!this.notificationRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Notification Repository');
+        this.notificationRepository = new FirebaseNotificationRepository();
+      } else {
+        this.notificationRepository = new LocalStorageNotificationRepository();
+      }
     }
-    return new LocalStorageNotificationRepository();
+    return this.notificationRepository;
   }
 
   getMetricRepository(): IVillageMetricRepository {
-    if (this.dbType === 'firebase') {
-      logger.info('Using Firebase Metric Repository');
-      return new FirebaseVillageMetricRepository();
+    if (!this.metricRepository) {
+      if (this.dbType === 'firebase') {
+        logger.info('Using Firebase Metric Repository');
+        this.metricRepository = new FirebaseVillageMetricRepository();
+      } else {
+        this.metricRepository = new LocalStorageVillageMetricRepository();
+      }
     }
-    return new LocalStorageVillageMetricRepository();
+    return this.metricRepository;
   }
 }
 
