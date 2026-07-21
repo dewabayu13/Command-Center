@@ -20,6 +20,9 @@ import {
 export interface ICitizenRepository {
   getCitizens(): Citizen[];
   addCitizen(citizen: Citizen): Citizen[];
+
+  updateCitizen(citizen: Citizen): Citizen[];
+  deleteCitizen(nik: string): Citizen[];
 }
 
 export interface IEmployeeRepository {

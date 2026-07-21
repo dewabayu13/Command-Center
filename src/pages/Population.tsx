@@ -8,10 +8,10 @@ import { useApp } from '../context/AppContext';
 import { useToast } from '../context/ToastContext';
 import { Citizen } from '../types';
 import { BentoCard } from '../components/bento/BentoCard';
-import { Search, UserPlus, Heart, Award, Filter, ShieldCheck } from 'lucide-react';
+import { Search, UserPlus, Heart, Award, Filter, ShieldCheck, Pencil, Trash2 } from 'lucide-react';
 
 export const Population: React.FC = () => {
-  const { citizens, addCitizen, currentRole } = useApp();
+  const { citizens, addCitizen, updateCitizen, deleteCitizen, currentRole } = useApp();
   const { toast } = useToast();
 
   // Search & Filter state
@@ -223,12 +223,13 @@ export const Population: React.FC = () => {
                   <th className="p-3">Pekerjaan</th>
                   <th className="p-3">Bantuan</th>
                   <th className="p-3">Status</th>
+                  <th className="p-3 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800 text-zinc-700 dark:text-zinc-200">
                 {filteredCitizens.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="p-8 text-center text-zinc-400">
+                    <td colSpan={7} className="p-8 text-center text-zinc-400">
                       Warga tidak ditemukan atau filter tidak sesuai.
                     </td>
                   </tr>
@@ -268,6 +269,23 @@ export const Population: React.FC = () => {
                         }`}>
                           {item.poorStatus ? 'Prasejahtera' : 'Mampu'}
                         </span>
+                      </td>
+                      <td className="p-3">
+                          <div className="flex items-center justify-center gap-2">
+    <button 
+     className="p-1 rounded-lg text-blue-600 hover:bg-blue-100"
+      title="Edit"
+    >
+      <Pencil className="w-4 h-4" />
+    </button>
+
+    <button
+      className="p-1 rounded-lg text-red-600 hover:bg-red-100"
+      title="Hapus"
+    >
+      <Trash2 className="w-4 h-4" />
+    </button>
+                     </div>
                       </td>
                     </tr>
                   ))

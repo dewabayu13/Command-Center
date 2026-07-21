@@ -308,8 +308,16 @@ export class FirebaseCitizenRepository extends BaseFirebaseRepository<Citizen> i
     this.create(citizen);
     return this.getAll();
   }
-}
+  updateCitizen(citizen: Citizen): Citizen[] {
+    this.update(citizen.nik, citizen);
+    return this.getAll();
+  }
 
+  deleteCitizen(nik: string): Citizen[] {
+    this.delete(nik);
+    return this.getAll();
+  }
+}
 export class FirebaseEmployeeRepository extends BaseFirebaseRepository<Employee> implements IEmployeeRepository {
   constructor() {
     super('employees', mockEmployees, 'uid');

@@ -81,6 +81,28 @@ export class LocalStorageCitizenRepository implements ICitizenRepository {
     setStored('citizens', list);
     return list;
   }
+  updateCitizen(citizen: Citizen): Citizen[] {
+    logger.info(`LocalStorageCitizenRepository.updateCitizen: ${citizen.nik}`);
+
+    const list = this.getCitizens();
+    const index = list.findIndex(c => c.nik === citizen.nik);
+
+    if (index !== -1) {
+    list[index] = citizen;
+    setStored('citizens', list);
+  }
+
+  return list;
+}
+
+  deleteCitizen(nik: string): Citizen[] {
+    logger.info(`LocalStorageCitizenRepository.deleteCitizen: ${nik}`);
+
+    const list = this.getCitizens().filter(c => c.nik !== nik);
+    setStored('citizens', list);
+
+  return list;
+}
 }
 
 export class LocalStorageEmployeeRepository implements IEmployeeRepository {

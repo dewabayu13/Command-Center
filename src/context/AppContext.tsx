@@ -43,6 +43,8 @@ interface AppContextType {
 
   refreshData: () => void;
   addCitizen: (citizen: Citizen) => void;
+  updateCitizen: (citizen: Citizen) => void;
+  deleteCitizen: (nik: string) => void;
   addAttendance: (record: Attendance) => void;
   addLetter: (letter: Letter) => void;
   updateLetterStatus: (id: string, status: 'Pending' | 'Verified' | 'Completed', signedBy?: string, qrCode?: string) => void;
@@ -131,7 +133,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     refreshData();
     addNotification('Warga Baru Terdaftar', `${citizen.fullName} berhasil ditambahkan ke database kependudukan.`, 'attendance');
   };
+  const updateCitizen = (citizen: Citizen) => {
+    logger.info(`Updating citizen: ${citizen.fullName}`);
+    citizenRepo.updateCitizen(citizen);
+    refreshData();
+  };
 
+  const deleteCitizen = (nik: string) => {
+    logger.info(`Deleting citizen: ${nik}`);
+    citizenRepo.deleteCitizen(nik);
+    refreshData();
+  };
   const addAttendance = (record: Attendance) => {
     logger.info(`Adding attendance record for: ${record.fullName}`);
     attendanceRepo.addAttendance(record);
@@ -243,6 +255,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         refreshData,
         addCitizen,
+        updateCitizen,
+        deleteCitizen,
         addAttendance,
         addLetter,
         updateLetterStatus,
