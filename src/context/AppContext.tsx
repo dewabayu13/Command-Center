@@ -42,19 +42,19 @@ interface AppContextType {
   budget: APBDesBudget;
 
   refreshData: () => void;
-  addCitizen: (citizen: Citizen) => void;
-  updateCitizen: (citizen: Citizen) => void;
-  deleteCitizen: (nik: string) => void;
-  addAttendance: (record: Attendance) => void;
-  addLetter: (letter: Letter) => void;
-  updateLetterStatus: (id: string, status: 'Pending' | 'Verified' | 'Completed', signedBy?: string, qrCode?: string) => void;
-  updateTaxStatus: (nop: string, status: 'Paid' | 'Unpaid') => void;
-  addProject: (project: VillageProject) => void;
-  addComplaint: (complaint: Complaint) => void;
-  updateComplaintStatus: (id: string, status: 'Submitted' | 'In Progress' | 'Resolved') => void;
-  addAsset: (asset: VillageAsset) => void;
-  addNotification: (title: string, desc: string, category: VillageNotification['category']) => void;
-  markNotificationAsRead: (id: string) => void;
+  addCitizen: (citizen: Citizen) => Promise<void>;
+  updateCitizen: (citizen: Citizen) => Promise<void>;
+  deleteCitizen: (nik: string) => Promise<void>;
+  addAttendance: (record: Attendance) => Promise<void>;
+  addLetter: (letter: Letter) => Promise<void>;
+  updateLetterStatus: (id: string, status: 'Pending' | 'Verified' | 'Completed', signedBy?: string, qrCode?: string) => Promise<void>;
+  updateTaxStatus: (nop: string, status: 'Paid' | 'Unpaid') => Promise<void>;
+  addProject: (project: VillageProject) => Promise<void>;
+  addComplaint: (complaint: Complaint) => Promise<void>;
+  updateComplaintStatus: (id: string, status: 'Submitted' | 'In Progress' | 'Resolved') => Promise<void>;
+  addAsset: (asset: VillageAsset) => Promise<void>;
+  addNotification: (title: string, desc: string, category: VillageNotification['category']) => Promise<void>;
+  markNotificationAsRead: (id: string) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -127,93 +127,150 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     refreshData();
   }, [refreshData]);
 
-  const addCitizen = (citizen: Citizen) => {
+  const addCitizen = async (citizen: Citizen) => {
     logger.info(`Adding citizen: ${citizen.fullName}`);
-    citizenRepo.addCitizen(citizen);
-    refreshData();
-    addNotification('Warga Baru Terdaftar', `${citizen.fullName} berhasil ditambahkan ke database kependudukan.`, 'attendance');
+    try {
+      await citizenRepo.addCitizen(citizen);
+      refreshData();
+      await addNotification('Warga Baru Terdaftar', `${citizen.fullName} berhasil ditambahkan ke database kependudukan.`, 'attendance');
+    } catch (error) {
+      logger.error('Error adding citizen:', error);
+      throw error;
+    }
   };
-  const updateCitizen = (citizen: Citizen) => {
+
+  const updateCitizen = async (citizen: Citizen) => {
     logger.info(`Updating citizen: ${citizen.fullName}`);
-    citizenRepo.updateCitizen(citizen);
-    refreshData();
+    try {
+      await citizenRepo.updateCitizen(citizen);
+      refreshData();
+    } catch (error) {
+      logger.error('Error updating citizen:', error);
+      throw error;
+    }
   };
 
-  const deleteCitizen = (nik: string) => {
+  const deleteCitizen = async (nik: string) => {
     logger.info(`Deleting citizen: ${nik}`);
-    citizenRepo.deleteCitizen(nik);
-    refreshData();
+    try {
+      await citizenRepo.deleteCitizen(nik);
+      refreshData();
+    } catch (error) {
+      logger.error('Error deleting citizen:', error);
+      throw error;
+    }
   };
-  const addAttendance = (record: Attendance) => {
+
+  const addAttendance = async (record: Attendance) => {
     logger.info(`Adding attendance record for: ${record.fullName}`);
-    attendanceRepo.addAttendance(record);
-    refreshData();
+    try {
+      await attendanceRepo.addAttendance(record);
+      refreshData();
+    } catch (error) {
+      logger.error('Error adding attendance:', error);
+      throw error;
+    }
   };
 
-  const addLetter = (letter: Letter) => {
+  const addLetter = async (letter: Letter) => {
     logger.info(`Submitting new letter: ${letter.title}`);
-    letterRepo.addLetter(letter);
-    refreshData();
-    addNotification('Permohonan Surat Baru', `Permohonan ${letter.title} diajukan oleh ${letter.applicantName}.`, 'letter');
+    try {
+      await letterRepo.addLetter(letter);
+      refreshData();
+      await addNotification('Permohonan Surat Baru', `Permohonan ${letter.title} diajukan oleh ${letter.applicantName}.`, 'letter');
+    } catch (error) {
+      logger.error('Error adding letter:', error);
+      throw error;
+    }
   };
 
-  const updateLetterStatus = (
+  const updateLetterStatus = async (
     id: string, 
     status: 'Pending' | 'Verified' | 'Completed', 
     signedBy?: string, 
     qrCode?: string
   ) => {
     logger.info(`Updating letter ${id} status to ${status}`);
-    letterRepo.updateLetterStatus(id, status, signedBy, qrCode);
-    refreshData();
-    const l = letterRepo.getLetters().find(item => item.letterId === id);
-    if (l) {
-      addNotification('Status Surat Diperbarui', `Surat ${l.title} milik ${l.applicantName} berstatus ${status}.`, 'letter');
+    try {
+      await letterRepo.updateLetterStatus(id, status, signedBy, qrCode);
+      refreshData();
+      const l = letterRepo.getLetters().find(item => item.letterId === id);
+      if (l) {
+        await addNotification('Status Surat Diperbarui', `Surat ${l.title} milik ${l.applicantName} berstatus ${status}.`, 'letter');
+      }
+    } catch (error) {
+      logger.error('Error updating letter status:', error);
+      throw error;
     }
   };
 
-  const updateTaxStatus = (nop: string, status: 'Paid' | 'Unpaid') => {
+  const updateTaxStatus = async (nop: string, status: 'Paid' | 'Unpaid') => {
     logger.info(`Updating tax status for ${nop} to ${status}`);
-    taxpayerRepo.updateTaxStatus(nop, status);
-    refreshData();
-    const t = taxpayerRepo.getTaxpayers().find(item => item.nop === nop);
-    if (t) {
-      addNotification('Pembayaran Pajak', `Pajak PBB atas nama ${t.taxpayerName} ditandai ${status === 'Paid' ? 'LUNAS' : 'BELUM LUNAS'}.`, 'tax');
+    try {
+      await taxpayerRepo.updateTaxStatus(nop, status);
+      refreshData();
+      const t = taxpayerRepo.getTaxpayers().find(item => item.nop === nop);
+      if (t) {
+        await addNotification('Pembayaran Pajak', `Pajak PBB atas nama ${t.taxpayerName} ditandai ${status === 'Paid' ? 'LUNAS' : 'BELUM LUNAS'}.`, 'tax');
+      }
+    } catch (error) {
+      logger.error('Error updating tax status:', error);
+      throw error;
     }
   };
 
-  const addProject = (project: VillageProject) => {
+  const addProject = async (project: VillageProject) => {
     logger.info(`Adding new project: ${project.name}`);
-    projectRepo.addProject(project);
-    refreshData();
-    addNotification('Proyek Pembangunan', `Proyek "${project.name}" telah ditambahkan.`, 'finance');
-  };
-
-  const addComplaint = (complaint: Complaint) => {
-    logger.info(`Adding complaint: ${complaint.title}`);
-    complaintRepo.addComplaint(complaint);
-    refreshData();
-    addNotification('Laporan Keluhan Warga', `Aduan "${complaint.title}" diajukan oleh ${complaint.reporterName}.`, 'complaint');
-  };
-
-  const updateComplaintStatus = (id: string, status: 'Submitted' | 'In Progress' | 'Resolved') => {
-    logger.info(`Updating complaint ${id} status to ${status}`);
-    complaintRepo.updateComplaintStatus(id, status);
-    refreshData();
-    const c = complaintRepo.getComplaints().find(item => item.complaintId === id);
-    if (c) {
-      addNotification('Status Aduan Diperbarui', `Aduan "${c.title}" sekarang berstatus ${status}.`, 'complaint');
+    try {
+      await projectRepo.addProject(project);
+      refreshData();
+      await addNotification('Proyek Pembangunan', `Proyek "${project.name}" telah ditambahkan.`, 'finance');
+    } catch (error) {
+      logger.error('Error adding project:', error);
+      throw error;
     }
   };
 
-  const addAsset = (asset: VillageAsset) => {
-    logger.info(`Adding new asset: ${asset.name}`);
-    assetRepo.addAsset(asset);
-    refreshData();
-    addNotification('Aset Desa Ditambahkan', `Aset "${asset.name}" berhasil terdaftar dengan kode pelacakan QR.`, 'finance');
+  const addComplaint = async (complaint: Complaint) => {
+    logger.info(`Adding complaint: ${complaint.title}`);
+    try {
+      await complaintRepo.addComplaint(complaint);
+      refreshData();
+      await addNotification('Laporan Keluhan Warga', `Aduan "${complaint.title}" diajukan oleh ${complaint.reporterName}.`, 'complaint');
+    } catch (error) {
+      logger.error('Error adding complaint:', error);
+      throw error;
+    }
   };
 
-  const addNotification = useCallback((title: string, desc: string, category: VillageNotification['category']) => {
+  const updateComplaintStatus = async (id: string, status: 'Submitted' | 'In Progress' | 'Resolved') => {
+    logger.info(`Updating complaint ${id} status to ${status}`);
+    try {
+      await complaintRepo.updateComplaintStatus(id, status);
+      refreshData();
+      const c = complaintRepo.getComplaints().find(item => item.complaintId === id);
+      if (c) {
+        await addNotification('Status Aduan Diperbarui', `Aduan "${c.title}" sekarang berstatus ${status}.`, 'complaint');
+      }
+    } catch (error) {
+      logger.error('Error updating complaint status:', error);
+      throw error;
+    }
+  };
+
+  const addAsset = async (asset: VillageAsset) => {
+    logger.info(`Adding new asset: ${asset.name}`);
+    try {
+      await assetRepo.addAsset(asset);
+      refreshData();
+      await addNotification('Aset Desa Ditambahkan', `Aset "${asset.name}" berhasil terdaftar dengan kode pelacakan QR.`, 'finance');
+    } catch (error) {
+      logger.error('Error adding asset:', error);
+      throw error;
+    }
+  };
+
+  const addNotification = async (title: string, desc: string, category: VillageNotification['category']) => {
     const newNotif: VillageNotification = {
       id: `notif_${Date.now()}`,
       title,
@@ -223,14 +280,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       read: false
     };
     logger.info(`Pushing notification: ${title}`);
-    notificationRepo.addNotification(newNotif);
-    refreshData();
-  }, [notificationRepo, refreshData]);
+    try {
+      await notificationRepo.addNotification(newNotif);
+      refreshData();
+    } catch (error) {
+      logger.error('Error adding notification:', error);
+      throw error;
+    }
+  };
 
-  const markNotificationAsRead = (id: string) => {
+  const markNotificationAsRead = async (id: string) => {
     logger.info(`Marking notification ${id} as read`);
-    notificationRepo.markNotificationRead(id);
-    refreshData();
+    try {
+      await notificationRepo.markNotificationRead(id);
+      refreshData();
+    } catch (error) {
+      logger.error('Error marking notification as read:', error);
+      throw error;
+    }
   };
 
   return (

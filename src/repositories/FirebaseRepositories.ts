@@ -304,18 +304,16 @@ export class FirebaseCitizenRepository extends BaseFirebaseRepository<Citizen> i
     return this.getAll();
   }
 
-  addCitizen(citizen: Citizen): Citizen[] {
-    this.create(citizen);
-    return this.getAll();
-  }
-  updateCitizen(citizen: Citizen): Citizen[] {
-    this.update(citizen.nik, citizen);
-    return this.getAll();
+  async addCitizen(citizen: Citizen): Promise<void> {
+    await this.create(citizen);
   }
 
-  deleteCitizen(nik: string): Citizen[] {
-    this.delete(nik);
-    return this.getAll();
+  async updateCitizen(citizen: Citizen): Promise<void> {
+    await this.update(citizen.nik, citizen);
+  }
+
+  async deleteCitizen(nik: string): Promise<void> {
+    await this.delete(nik);
   }
 }
 export class FirebaseEmployeeRepository extends BaseFirebaseRepository<Employee> implements IEmployeeRepository {
@@ -337,9 +335,8 @@ export class FirebaseAttendanceRepository extends BaseFirebaseRepository<Attenda
     return this.getAll();
   }
 
-  addAttendance(record: Attendance): Attendance[] {
-    this.create(record);
-    return this.getAll();
+  async addAttendance(record: Attendance): Promise<void> {
+    await this.create(record);
   }
 }
 
@@ -352,24 +349,22 @@ export class FirebaseLetterRepository extends BaseFirebaseRepository<Letter> imp
     return this.getAll();
   }
 
-  addLetter(letter: Letter): Letter[] {
-    this.create(letter);
-    return this.getAll();
+  async addLetter(letter: Letter): Promise<void> {
+    await this.create(letter);
   }
 
-  updateLetterStatus(
+  async updateLetterStatus(
     letterId: string,
     status: 'Pending' | 'Verified' | 'Completed',
     signedBy?: string,
     qrCode?: string
-  ): Letter[] {
-    this.update(letterId, {
+  ): Promise<void> {
+    await this.update(letterId, {
       status,
       completedAt: status === 'Completed' ? new Date().toISOString().replace('T', ' ').slice(0, 16) : undefined,
       signedBy,
       qrVerificationCode: qrCode
     });
-    return this.getAll();
   }
 }
 
@@ -382,12 +377,11 @@ export class FirebaseTaxpayerRepository extends BaseFirebaseRepository<Taxpayer>
     return this.getAll();
   }
 
-  updateTaxStatus(nop: string, status: 'Paid' | 'Unpaid'): Taxpayer[] {
-    this.update(nop, {
+  async updateTaxStatus(nop: string, status: 'Paid' | 'Unpaid'): Promise<void> {
+    await this.update(nop, {
       status,
       paidAt: status === 'Paid' ? new Date().toISOString().replace('T', ' ').slice(0, 16) : undefined
     });
-    return this.getAll();
   }
 }
 
@@ -400,9 +394,8 @@ export class FirebaseVillageProjectRepository extends BaseFirebaseRepository<Vil
     return this.getAll();
   }
 
-  addProject(project: VillageProject): VillageProject[] {
-    this.create(project);
-    return this.getAll();
+  async addProject(project: VillageProject): Promise<void> {
+    await this.create(project);
   }
 }
 
@@ -415,20 +408,18 @@ export class FirebaseComplaintRepository extends BaseFirebaseRepository<Complain
     return this.getAll();
   }
 
-  addComplaint(complaint: Complaint): Complaint[] {
-    this.create(complaint);
-    return this.getAll();
+  async addComplaint(complaint: Complaint): Promise<void> {
+    await this.create(complaint);
   }
 
-  updateComplaintStatus(
+  async updateComplaintStatus(
     complaintId: string,
     status: 'Submitted' | 'In Progress' | 'Resolved'
-  ): Complaint[] {
-    this.update(complaintId, {
+  ): Promise<void> {
+    await this.update(complaintId, {
       status,
       responseTimeHours: status === 'Resolved' ? Math.floor(Math.random() * 24) + 12 : undefined
     });
-    return this.getAll();
   }
 }
 
@@ -441,9 +432,8 @@ export class FirebaseAssetRepository extends BaseFirebaseRepository<VillageAsset
     return this.getAll();
   }
 
-  addAsset(asset: VillageAsset): VillageAsset[] {
-    this.create(asset);
-    return this.getAll();
+  async addAsset(asset: VillageAsset): Promise<void> {
+    await this.create(asset);
   }
 }
 
@@ -456,14 +446,12 @@ export class FirebaseNotificationRepository extends BaseFirebaseRepository<Villa
     return this.getAll();
   }
 
-  addNotification(notif: VillageNotification): VillageNotification[] {
-    this.create(notif);
-    return this.getAll();
+  async addNotification(notif: VillageNotification): Promise<void> {
+    await this.create(notif);
   }
 
-  markNotificationRead(id: string): VillageNotification[] {
-    this.update(id, { read: true });
-    return this.getAll();
+  async markNotificationRead(id: string): Promise<void> {
+    await this.update(id, { read: true });
   }
 }
 

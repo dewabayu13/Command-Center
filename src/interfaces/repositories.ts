@@ -19,10 +19,9 @@ import {
 
 export interface ICitizenRepository {
   getCitizens(): Citizen[];
-  addCitizen(citizen: Citizen): Citizen[];
-
-  updateCitizen(citizen: Citizen): Citizen[];
-  deleteCitizen(nik: string): Citizen[];
+  addCitizen(citizen: Citizen): Promise<void>;
+  updateCitizen(citizen: Citizen): Promise<void>;
+  deleteCitizen(nik: string): Promise<void>;
 }
 
 export interface IEmployeeRepository {
@@ -31,48 +30,48 @@ export interface IEmployeeRepository {
 
 export interface IAttendanceRepository {
   getAttendance(): Attendance[];
-  addAttendance(record: Attendance): Attendance[];
+  addAttendance(record: Attendance): Promise<void>;
 }
 
 export interface ILetterRepository {
   getLetters(): Letter[];
-  addLetter(letter: Letter): Letter[];
+  addLetter(letter: Letter): Promise<void>;
   updateLetterStatus(
     letterId: string,
     status: 'Pending' | 'Verified' | 'Completed',
     signedBy?: string,
     qrCode?: string
-  ): Letter[];
+  ): Promise<void>;
 }
 
 export interface ITaxpayerRepository {
   getTaxpayers(): Taxpayer[];
-  updateTaxStatus(nop: string, status: 'Paid' | 'Unpaid'): Taxpayer[];
+  updateTaxStatus(nop: string, status: 'Paid' | 'Unpaid'): Promise<void>;
 }
 
 export interface IVillageProjectRepository {
   getProjects(): VillageProject[];
-  addProject(project: VillageProject): VillageProject[];
+  addProject(project: VillageProject): Promise<void>;
 }
 
 export interface IComplaintRepository {
   getComplaints(): Complaint[];
-  addComplaint(complaint: Complaint): Complaint[];
+  addComplaint(complaint: Complaint): Promise<void>;
   updateComplaintStatus(
     complaintId: string,
     status: 'Submitted' | 'In Progress' | 'Resolved'
-  ): Complaint[];
+  ): Promise<void>;
 }
 
 export interface IVillageAssetRepository {
   getAssets(): VillageAsset[];
-  addAsset(asset: VillageAsset): VillageAsset[];
+  addAsset(asset: VillageAsset): Promise<void>;
 }
 
 export interface INotificationRepository {
   getNotifications(): VillageNotification[];
-  addNotification(notif: VillageNotification): VillageNotification[];
-  markNotificationRead(id: string): VillageNotification[];
+  addNotification(notif: VillageNotification): Promise<void>;
+  markNotificationRead(id: string): Promise<void>;
 }
 
 export interface IVillageMetricRepository {

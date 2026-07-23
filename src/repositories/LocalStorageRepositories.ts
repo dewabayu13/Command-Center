@@ -74,35 +74,28 @@ export class LocalStorageCitizenRepository implements ICitizenRepository {
     return getStored('citizens', mockCitizens);
   }
 
-  addCitizen(citizen: Citizen): Citizen[] {
+  async addCitizen(citizen: Citizen): Promise<void> {
     logger.info(`LocalStorageCitizenRepository.addCitizen for: ${citizen.fullName}`);
     const list = this.getCitizens();
     list.unshift(citizen);
     setStored('citizens', list);
-    return list;
   }
-  updateCitizen(citizen: Citizen): Citizen[] {
-    logger.info(`LocalStorageCitizenRepository.updateCitizen: ${citizen.nik}`);
 
+  async updateCitizen(citizen: Citizen): Promise<void> {
+    logger.info(`LocalStorageCitizenRepository.updateCitizen: ${citizen.nik}`);
     const list = this.getCitizens();
     const index = list.findIndex(c => c.nik === citizen.nik);
-
     if (index !== -1) {
-    list[index] = citizen;
-    setStored('citizens', list);
+      list[index] = citizen;
+      setStored('citizens', list);
+    }
   }
 
-  return list;
-}
-
-  deleteCitizen(nik: string): Citizen[] {
+  async deleteCitizen(nik: string): Promise<void> {
     logger.info(`LocalStorageCitizenRepository.deleteCitizen: ${nik}`);
-
     const list = this.getCitizens().filter(c => c.nik !== nik);
     setStored('citizens', list);
-
-  return list;
-}
+  }
 }
 
 export class LocalStorageEmployeeRepository implements IEmployeeRepository {
@@ -119,12 +112,11 @@ export class LocalStorageAttendanceRepository implements IAttendanceRepository {
     return getStored('attendance', mockAttendanceList);
   }
 
-  addAttendance(record: Attendance): Attendance[] {
+  async addAttendance(record: Attendance): Promise<void> {
     logger.info(`LocalStorageAttendanceRepository.addAttendance for: ${record.fullName}`);
     const list = this.getAttendance();
     list.unshift(record);
     setStored('attendance', list);
-    return list;
   }
 }
 
@@ -134,20 +126,19 @@ export class LocalStorageLetterRepository implements ILetterRepository {
     return getStored('letters', mockLetters);
   }
 
-  addLetter(letter: Letter): Letter[] {
+  async addLetter(letter: Letter): Promise<void> {
     logger.info(`LocalStorageLetterRepository.addLetter for: ${letter.title}`);
     const list = this.getLetters();
     list.unshift(letter);
     setStored('letters', list);
-    return list;
   }
 
-  updateLetterStatus(
+  async updateLetterStatus(
     letterId: string,
     status: 'Pending' | 'Verified' | 'Completed',
     signedBy?: string,
     qrCode?: string
-  ): Letter[] {
+  ): Promise<void> {
     logger.info(`LocalStorageLetterRepository.updateLetterStatus id: ${letterId} status: ${status}`);
     const list = this.getLetters();
     const updated = list.map(l => {
@@ -163,7 +154,6 @@ export class LocalStorageLetterRepository implements ILetterRepository {
       return l;
     });
     setStored('letters', updated);
-    return updated;
   }
 }
 
@@ -173,7 +163,7 @@ export class LocalStorageTaxpayerRepository implements ITaxpayerRepository {
     return getStored('taxpayers', mockTaxpayers);
   }
 
-  updateTaxStatus(nop: string, status: 'Paid' | 'Unpaid'): Taxpayer[] {
+  async updateTaxStatus(nop: string, status: 'Paid' | 'Unpaid'): Promise<void> {
     logger.info(`LocalStorageTaxpayerRepository.updateTaxStatus nop: ${nop} status: ${status}`);
     const list = this.getTaxpayers();
     const updated = list.map(t => {
@@ -187,7 +177,6 @@ export class LocalStorageTaxpayerRepository implements ITaxpayerRepository {
       return t;
     });
     setStored('taxpayers', updated);
-    return updated;
   }
 }
 
@@ -197,12 +186,11 @@ export class LocalStorageVillageProjectRepository implements IVillageProjectRepo
     return getStored('projects', mockProjects);
   }
 
-  addProject(project: VillageProject): VillageProject[] {
+  async addProject(project: VillageProject): Promise<void> {
     logger.info(`LocalStorageVillageProjectRepository.addProject for: ${project.name}`);
     const list = this.getProjects();
     list.unshift(project);
     setStored('projects', list);
-    return list;
   }
 }
 
@@ -212,18 +200,17 @@ export class LocalStorageComplaintRepository implements IComplaintRepository {
     return getStored('complaints', mockComplaints);
   }
 
-  addComplaint(complaint: Complaint): Complaint[] {
+  async addComplaint(complaint: Complaint): Promise<void> {
     logger.info(`LocalStorageComplaintRepository.addComplaint for: ${complaint.title}`);
     const list = this.getComplaints();
     list.unshift(complaint);
     setStored('complaints', list);
-    return list;
   }
 
-  updateComplaintStatus(
+  async updateComplaintStatus(
     complaintId: string,
     status: 'Submitted' | 'In Progress' | 'Resolved'
-  ): Complaint[] {
+  ): Promise<void> {
     logger.info(`LocalStorageComplaintRepository.updateComplaintStatus id: ${complaintId} status: ${status}`);
     const list = this.getComplaints();
     const updated = list.map(c => {
@@ -237,7 +224,6 @@ export class LocalStorageComplaintRepository implements IComplaintRepository {
       return c;
     });
     setStored('complaints', updated);
-    return updated;
   }
 }
 
@@ -247,12 +233,11 @@ export class LocalStorageAssetRepository implements IVillageAssetRepository {
     return getStored('assets', mockAssets);
   }
 
-  addAsset(asset: VillageAsset): VillageAsset[] {
+  async addAsset(asset: VillageAsset): Promise<void> {
     logger.info(`LocalStorageAssetRepository.addAsset for: ${asset.name}`);
     const list = this.getAssets();
     list.unshift(asset);
     setStored('assets', list);
-    return list;
   }
 }
 
@@ -262,20 +247,18 @@ export class LocalStorageNotificationRepository implements INotificationReposito
     return getStored('notifications', mockNotifications);
   }
 
-  addNotification(notif: VillageNotification): VillageNotification[] {
+  async addNotification(notif: VillageNotification): Promise<void> {
     logger.info(`LocalStorageNotificationRepository.addNotification for: ${notif.title}`);
     const list = this.getNotifications();
     list.unshift(notif);
     setStored('notifications', list);
-    return list;
   }
 
-  markNotificationRead(id: string): VillageNotification[] {
+  async markNotificationRead(id: string): Promise<void> {
     logger.info(`LocalStorageNotificationRepository.markNotificationRead id: ${id}`);
     const list = this.getNotifications();
     const updated = list.map(n => n.id === id ? { ...n, read: true } : n);
     setStored('notifications', updated);
-    return updated;
   }
 }
 
