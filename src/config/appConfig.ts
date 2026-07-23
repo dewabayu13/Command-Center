@@ -6,7 +6,7 @@
 export const APP_CONFIG = {
   // Database type toggle
   // In Phase 2, this is 'local'. In Phase 3, it can be set to 'firebase'
-  DB_TYPE: (((import.meta as any).env?.VITE_DB_TYPE || 'local') as 'local' | 'firebase'),
+  DB_TYPE: 'firebase' as 'local' | 'firebase',
 
   // Local Storage
   LOCAL_STORAGE_PREFIX: 'easydes_',

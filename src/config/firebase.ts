@@ -15,12 +15,12 @@ import {
 import { logger } from '../utils/logger';
 
 const firebaseConfig = {
-  apiKey: (import.meta as any).env?.VITE_FIREBASE_API_KEY,
-  authDomain: (import.meta as any).env?.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: (import.meta as any).env?.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: (import.meta as any).env?.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: (import.meta as any).env?.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: (import.meta as any).env?.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyCsdru_-FWneaa-88E86OmrdMcSuiXd6h4",
+  authDomain: "easydes-command-center.firebaseapp.com",
+  projectId: "easydes-command-center",
+  storageBucket: "easydes-command-center.firebasestorage.app",
+  messagingSenderId: "861260552996",
+  appId: "1:861260552996:web:7cdb4a8b7dd83b64c5b1b1"
 };
 
 let app: FirebaseApp | null = null;
@@ -32,9 +32,6 @@ export function isFirebaseConfigured(): boolean {
 }
 
 export function getFirebaseApp(): FirebaseApp {
-  if (!isFirebaseConfigured()) {
-    throw new Error('Firebase is not configured. Please supply VITE_FIREBASE_API_KEY and VITE_FIREBASE_PROJECT_ID in your environment.');
-  }
   if (!app) {
     try {
       app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
